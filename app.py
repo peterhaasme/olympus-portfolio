@@ -190,11 +190,13 @@ notes = dbc.Col(
     dcc.Markdown('''
         ##### Notes
         - Test addresses:
-            - TIME -> 0x104d5ebb38af1ae5eb469b86922d1f10808eb35f
-            - MEMO -> 0xe7ca3ff841ee183e69a38671927290a34de49567
-            - wMEMO -> 0xdcf6f52faf50d9e0b6df301003b90979d232400e
+            - OHM -> 0xf37b40843e72630c77dab62e1b3425a71647d535
+            - sOHM V2 -> 0x71deff8dd6258fdade87db2c012d4a22bb0a527f
+            - wsOHM (ETH Mainnet)-> 0x242489ccfe7d7081d4b2778931a6d6c0c1fb3806
+            - gOHM (Ethereum)-> 0x5de56faec0190f6ff9fae65deb4dab4b1c5d1c73
         - Prices refresh every 60s
-        - [Github](https://github.com/peterhaasme/wonderland-portfolio)
+        - sOHM v2 balance only
+        - [Github](https://github.com/peterhaasme/olympus-portfolio)
         - Coming soon: bonding rewards balance
     ''')
 )
