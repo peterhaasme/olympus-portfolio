@@ -1,6 +1,6 @@
-# Wonderland Portfolio Balance
+# Olympus Portfolio Balance
 
-Enter wallet address, get TIME Wonderland portfolio balance.
+Enter wallet address, get Olympus portfolio balance.
 
 app.py - main application file  
 run.py - development server  
