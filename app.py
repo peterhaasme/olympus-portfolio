@@ -43,7 +43,7 @@ wallet_input = [
                 placeholder='Ex: 0x104d5ebb38af1ae5eb469b86922d1f10808eb35f',
                 type='text',
                 autofocus=True,
-                class_name='bg-dark'
+                class_name=''
             ),
             dbc.FormFeedback(
                 children="Valid address",
@@ -82,7 +82,7 @@ ohm_balance = [
         lg=2
     ),
     dbc.Col(
-        children='TIME value',
+        children='OHM value',
         width=6,
         lg=2
     ),
@@ -190,7 +190,7 @@ notes = dbc.Col(
     dcc.Markdown('''
         ##### Notes
         - Test addresses:
-            - OHM -> 0xf37b40843e72630c77dab62e1b3425a71647d535
+            - OHM -> 0x12a8141ede9e39343e0aa2362762f6f53d10f292
             - sOHM V2 -> 0x71deff8dd6258fdade87db2c012d4a22bb0a527f
             - wsOHM (ETH Mainnet)-> 0x242489ccfe7d7081d4b2778931a6d6c0c1fb3806
             - gOHM (Ethereum)-> 0x5de56faec0190f6ff9fae65deb4dab4b1c5d1c73
@@ -274,7 +274,7 @@ def get_token_balance(token, wal_addr, currency):
     ctrct_addr = tokens[token]['address']
     checksum_address = web3.toChecksumAddress(ctrct_addr)
     wal_checksum = web3.toChecksumAddress(wal_addr)
-    abi = tokens['time']['abi']
+    abi = tokens[token]['abi']
     abi = json.loads(abi)
     contract = web3.eth.contract(address=checksum_address, abi=abi)
     balance_gwei = contract.functions.balanceOf(wal_checksum).call()
@@ -364,7 +364,7 @@ def display_balances(valid, value, n):
         sohm_bal_show = '0'
         wsohm_bal_show = '0'
 
-    # Get token prices. MEMO = TIME
+    # Get token prices. sOHM = OHM
     url = 'https://api.nomics.com/v1/currencies/ticker'
     payload = {
         'key': NOMICS_API_KEY,
@@ -396,7 +396,3 @@ def display_balances(valid, value, n):
     return (ohm_bal_show, sohm_bal_show, wsohm_bal_show, ohm_price_show,
             ohm_price_show, wsohm_price_show, ohm_value_show, sohm_value_show,
             wsohm_value_show, total_value_show)
-
-
-# if __name__ == '__main__':
-#     app.run_server(debug=True)
