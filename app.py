@@ -166,6 +166,42 @@ wsohm_balance = [
     )
 ]
 
+gohm_balance = [
+    dbc.Col(
+        children='gOHM balance',
+        width=6,
+        lg=2
+    ),
+    dbc.Col(
+        id='gohm_balance',
+        children='',
+        width=6,
+        lg=2
+    ),
+    dbc.Col(
+        children='gOHM price',
+        width=6,
+        lg=2
+    ),
+    dbc.Col(
+        id='gohm_price',
+        children='',
+        width=6,
+        lg=2
+    ),
+    dbc.Col(
+        children='gOHM value',
+        width=6,
+        lg=2
+    ),
+    dbc.Col(
+        id='gohm_value',
+        children='',
+        width=6,
+        lg=2
+    )
+]
+
 total_value = [
     dbc.Col(
         id='total_value',
@@ -221,6 +257,10 @@ app.layout = dbc.Container([
     ),
     dbc.Row(
         children=wsohm_balance,
+        class_name='text-center h5 my-3 p-3 bg-light rounded-3'
+    ),
+    dbc.Row(
+        children=gohm_balance,
         class_name='text-center h5 my-3 p-3 bg-light rounded-3'
     ),
     dbc.Row(
@@ -296,6 +336,10 @@ def get_token_balance(token, wal_addr, currency):
         component_property='children'
     ),
     Output(
+        component_id='gohm_balance',
+        component_property='children'
+    ),
+    Output(
         component_id='ohm_price',
         component_property='children'
     ),
@@ -308,6 +352,10 @@ def get_token_balance(token, wal_addr, currency):
         component_property='children'
     ),
     Output(
+        component_id='gohm_price',
+        component_property='children'
+    ),
+    Output(
         component_id='ohm_value',
         component_property='children'
     ),
@@ -317,6 +365,10 @@ def get_token_balance(token, wal_addr, currency):
     ),
     Output(
         component_id='wsohm_value',
+        component_property='children'
+    ),
+    Output(
+        component_id='gohm_value',
         component_property='children'
     ),
     Output(
@@ -356,13 +408,20 @@ def display_balances(valid, value, n):
             wal_addr=value,
             currency='ether'
         )
+        gohm_bal = get_token_balance(
+            token='gohm',
+            wal_addr=value,
+            currency='ether'
+        )
         ohm_bal_show = round(ohm_bal, 2)
         sohm_bal_show = round(sohm_bal, 2)
         wsohm_bal_show = round(wsohm_bal, 5)
+        gohm_bal_show = round(gohm_bal, 5)
     else:
         ohm_bal_show = '0'
         sohm_bal_show = '0'
         wsohm_bal_show = '0'
+        gohm_bal_show = '0'
 
     # Get token prices. sOHM = OHM
     url = 'https://api.nomics.com/v1/currencies/ticker'
@@ -384,15 +443,18 @@ def display_balances(valid, value, n):
         sohm_value_show = f'${sohm_value:,.2f}'
         wsohm_value = float(wsohm_bal) * float(wsohm_price)
         wsohm_value_show = f'${wsohm_value:,.2f}'
-        total_value = ohm_value + sohm_value + wsohm_value
+        gohm_value = float(gohm_bal) * float(wsohm_price)
+        gohm_value_show = f'${gohm_value:,.2f}'
+        total_value = ohm_value + sohm_value + wsohm_value + gohm_value
         total_value_show = f'Total Value = ${total_value:,.2f}'
     else:
         ohm_value_show = '$0'
         sohm_value_show = '$0'
         wsohm_value_show = '$0'
+        gohm_value_show = '$0'
         total_value_show = 'Total Value = $0'
 
     # Return values
-    return (ohm_bal_show, sohm_bal_show, wsohm_bal_show, ohm_price_show,
-            ohm_price_show, wsohm_price_show, ohm_value_show, sohm_value_show,
-            wsohm_value_show, total_value_show)
+    return (ohm_bal_show, sohm_bal_show, wsohm_bal_show, gohm_bal_show, ohm_price_show,
+            ohm_price_show, wsohm_price_show, wsohm_price_show, ohm_value_show, sohm_value_show,
+            wsohm_value_show, gohm_value_show, total_value_show)
