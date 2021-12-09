@@ -24,9 +24,9 @@ server = app.server
 load_dotenv()
 NOMICS_API_KEY = os.getenv('NOMICS_API_KEY')
 
-# create Avax connection
-avalanche_url = 'https://api.avax.network/ext/bc/C/rpc'
-web3 = Web3(Web3.HTTPProvider(avalanche_url))
+# create Infura connection
+INFURA_URL = os.getenv('INFURA_URL')
+web3 = Web3(Web3.HTTPProvider(INFURA_URL))
 
 # LAYOUT ###
 # Layout components
