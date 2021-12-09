@@ -58,25 +58,25 @@ wallet_input = [
     )
 ]
 
-time_balance = [
+ohm_balance = [
     dbc.Col(
-        children='TIME balance',
+        children='OHM balance',
         width=6,
         lg=2
     ),
     dbc.Col(
-        id='time_balance',
+        id='ohm_balance',
         children='',
         width=6,
         lg=2
     ),
     dbc.Col(
-        children='TIME price',
+        children='OHM price',
         width=6,
         lg=2
     ),
     dbc.Col(
-        id='time_price',
+        id='ohm_price',
         children='',
         width=6,
         lg=2
@@ -87,79 +87,79 @@ time_balance = [
         lg=2
     ),
     dbc.Col(
-        id='time_value',
+        id='ohm_value',
         children='',
         width=6,
         lg=2
     )
 ]
 
-memo_balance = [
+sohm_balance = [
     dbc.Col(
-        children='MEMO balance',
+        children='sOHM balance',
         width=6,
         lg=2
     ),
     dbc.Col(
-        id='memo_balance',
+        id='sohm_balance',
         children='',
         width=6,
         lg=2
     ),
     dbc.Col(
-        children='MEMO price',
+        children='sOHM price',
         width=6,
         lg=2
     ),
     dbc.Col(
-        id='memo_price',
+        id='sohm_price',
         children='',
         width=6,
         lg=2
     ),
     dbc.Col(
-        children='MEMO value',
+        children='sOHM value',
         width=6,
         lg=2
     ),
     dbc.Col(
-        id='memo_value',
+        id='sohm_value',
         children='',
         width=6,
         lg=2
     )
 ]
 
-wmemo_balance = [
+wsohm_balance = [
     dbc.Col(
-        children='wMEMO balance',
+        children='wsOHM balance',
         width=6,
         lg=2
     ),
     dbc.Col(
-        id='wmemo_balance',
+        id='wsohm_balance',
         children='',
         width=6,
         lg=2
     ),
     dbc.Col(
-        children='wMEMO price',
+        children='wsOHM price',
         width=6,
         lg=2
     ),
     dbc.Col(
-        id='wmemo_price',
+        id='wsohm_price',
         children='',
         width=6,
         lg=2
     ),
     dbc.Col(
-        children='wMEMO value',
+        children='wsOHM value',
         width=6,
         lg=2
     ),
     dbc.Col(
-        id='wmemo_value',
+        id='wsohm_value',
         children='',
         width=6,
         lg=2
@@ -204,7 +204,7 @@ notes = dbc.Col(
 # Page Layout
 app.layout = dbc.Container([
     dbc.Row(
-        children=dbc.Col(html.H1('Wonderland Portfolio Balance')),
+        children=dbc.Col(html.H1('Olympus Portfolio Balance')),
         class_name='text-center mt-3'
     ),
     dbc.Row(
@@ -212,15 +212,15 @@ app.layout = dbc.Container([
         class_name='my-4'
     ),
     dbc.Row(
-        children=time_balance,
+        children=ohm_balance,
         class_name='text-center h5 my-3 p-3 bg-light rounded-3'
     ),
     dbc.Row(
-        children=memo_balance,
+        children=sohm_balance,
         class_name='text-center h5 my-3 p-3 bg-light rounded-3'
     ),
     dbc.Row(
-        children=wmemo_balance,
+        children=wsohm_balance,
         class_name='text-center h5 my-3 p-3 bg-light rounded-3'
     ),
     dbc.Row(
@@ -284,39 +284,39 @@ def get_token_balance(token, wal_addr, currency):
 
 @app.callback(
     Output(
-        component_id='time_balance',
+        component_id='ohm_balance',
         component_property='children'
     ),
     Output(
-        component_id='memo_balance',
+        component_id='sohm_balance',
         component_property='children'
     ),
     Output(
-        component_id='wmemo_balance',
+        component_id='wsohm_balance',
         component_property='children'
     ),
     Output(
-        component_id='time_price',
+        component_id='ohm_price',
         component_property='children'
     ),
     Output(
-        component_id='memo_price',
+        component_id='sohm_price',
         component_property='children'
     ),
     Output(
-        component_id='wmemo_price',
+        component_id='wsohm_price',
         component_property='children'
     ),
     Output(
-        component_id='time_value',
+        component_id='ohm_value',
         component_property='children'
     ),
     Output(
-        component_id='memo_value',
+        component_id='sohm_value',
         component_property='children'
     ),
     Output(
-        component_id='wmemo_value',
+        component_id='wsohm_value',
         component_property='children'
     ),
     Output(
@@ -341,61 +341,61 @@ def display_balances(valid, value, n):
     '''
     # If the wallet address is valid retrieve balances
     if valid:
-        time_bal = get_token_balance(
-            token='time',
+        ohm_bal = get_token_balance(
+            token='ohm',
             wal_addr=value,
             currency='gwei'
         )
-        memo_bal = get_token_balance(
-            token='memo',
+        sohm_bal = get_token_balance(
+            token='sohm',
             wal_addr=value,
             currency='gwei'
         )
-        wmemo_bal = get_token_balance(
-            token='wmemo',
+        wsohm_bal = get_token_balance(
+            token='wsohm',
             wal_addr=value,
             currency='ether'
         )
-        time_bal_show = round(time_bal, 2)
-        memo_bal_show = round(memo_bal, 2)
-        wmemo_bal_show = round(wmemo_bal, 5)
+        ohm_bal_show = round(ohm_bal, 2)
+        sohm_bal_show = round(sohm_bal, 2)
+        wsohm_bal_show = round(wsohm_bal, 5)
     else:
-        time_bal_show = '0'
-        memo_bal_show = '0'
-        wmemo_bal_show = '0'
+        ohm_bal_show = '0'
+        sohm_bal_show = '0'
+        wsohm_bal_show = '0'
 
     # Get token prices. MEMO = TIME
     url = 'https://api.nomics.com/v1/currencies/ticker'
     payload = {
         'key': NOMICS_API_KEY,
-        'ids': 'TIME5,WMEMO'
+        'ids': 'OHM,WSOHM'
     }
     response = requests.get(url, params=payload)
-    time_price = response.json()[0]['price']
-    time_price_show = f'${float(time_price):,.2f}'
-    wmemo_price = response.json()[1]['price']
-    wmemo_price_show = f'${float(wmemo_price):,.2f}'
+    ohm_price = response.json()[0]['price']
+    ohm_price_show = f'${float(ohm_price):,.2f}'
+    wsohm_price = response.json()[1]['price']
+    wsohm_price_show = f'${float(wsohm_price):,.2f}'
 
     # If the wallet address is valid compute values
     if valid:
-        time_value = float(time_bal) * float(time_price)
-        time_value_show = f'${time_value:,.2f}'
-        memo_value = float(memo_bal) * float(time_price)
-        memo_value_show = f'${memo_value:,.2f}'
-        wmemo_value = float(wmemo_bal) * float(wmemo_price)
-        wmemo_value_show = f'${wmemo_value:,.2f}'
-        total_value = time_value + memo_value + wmemo_value
+        ohm_value = float(ohm_bal) * float(ohm_price)
+        ohm_value_show = f'${ohm_value:,.2f}'
+        sohm_value = float(sohm_bal) * float(ohm_price)
+        sohm_value_show = f'${sohm_value:,.2f}'
+        wsohm_value = float(wsohm_bal) * float(wsohm_price)
+        wsohm_value_show = f'${wsohm_value:,.2f}'
+        total_value = ohm_value + sohm_value + wsohm_value
         total_value_show = f'Total Value = ${total_value:,.2f}'
     else:
-        time_value_show = '$0'
-        memo_value_show = '$0'
-        wmemo_value_show = '$0'
+        ohm_value_show = '$0'
+        sohm_value_show = '$0'
+        wsohm_value_show = '$0'
         total_value_show = 'Total Value = $0'
 
     # Return values
-    return (time_bal_show, memo_bal_show, wmemo_bal_show, time_price_show,
-            time_price_show, wmemo_price_show, time_value_show, memo_value_show,
-            wmemo_value_show, total_value_show)
+    return (ohm_bal_show, sohm_bal_show, wsohm_bal_show, ohm_price_show,
+            ohm_price_show, wsohm_price_show, ohm_value_show, sohm_value_show,
+            wsohm_value_show, total_value_show)
 
 
 # if __name__ == '__main__':
